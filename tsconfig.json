@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2018",
+    "baseUrl": "src",
+    "strictNullChecks": true,
+    "paths": {
+      "~/*": ["*"]
+    }
+  },
+  "include": ["src/**/*.ts"]
+}

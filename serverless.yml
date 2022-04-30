@@ -1,0 +1,55 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: serverless-http-api-typescript-example
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: eu-west-1
+  profile: serverlessUser
+  environment:
+    OFFLINE_HTTP_PORT: 3000
+
+custom:
+  webpack:
+    forceExclude:
+      - aws-sdk
+  serverless-offline:
+    httpPort: ${self:provider.environment.OFFLINE_HTTP_PORT}
+
+functions:
+  hello:
+    handler: src/lambdas/endpoints/hello.handler
+    events:
+      - http:
+          path: hello
+          method: GET
+          cors: true
+    layers:
+      - { Ref: CommonLibsLambdaLayer }
