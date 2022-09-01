@@ -43,6 +43,12 @@ custom:
   serverless-offline:
     httpPort: ${self:provider.environment.OFFLINE_HTTP_PORT}
 
+layers:
+  commonLibs:
+    path: layer
+    compatibleRuntimes:
+      - nodejs14.x
+
 functions:
   hello:
     handler: src/lambdas/endpoints/hello.handler
